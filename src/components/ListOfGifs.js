@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import getGifs from '../services/getGifs'
 import Gif from './Gif';
 
-const ListOfGifs = ({keyWord}) => {
+const ListOfGifs = ({params}) => {
     const [ gifs, setGifs ] = useState([])
-
+    const {keyWord} = params
   useEffect( () =>{
     async function fetchAPi() {
       //const keyWord='morty'
@@ -16,7 +16,10 @@ const ListOfGifs = ({keyWord}) => {
           //  getGifs.then(res => setGifs(res))    
   }, [keyWord])
 
-    return gifs.map((singleGifs, index) => <Gif {...singleGifs} key={index}/>  )
+    return <>
+        {gifs.map((singleGifs, index) => <Gif {...singleGifs} key={index}/>  )}
+    </>
+    
           
     
 }
