@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import getGifs from './services/getGifs';
 
-const apiURL = 'https://api.giphy.com/v1/gifs/search?api_key=gu8hS8GASdStQPdF1rMsxSXyy8SwlZ27&q=pandas&limit=25&offset=0&rating=g&lang=en'
+
 
 
 const  App = () => {
   const [ gifs, setGifs ] = useState([])
 
-  useEffect(() =>{
-    fetch(apiURL)
-    .then(res => res.json())
-    .then(response =>{
-      const { data } = response;
-      if( Array.isArray(data)) {
-        const gifs = data.map(image => image.images.downsized_medium.url)
-        setGifs(gifs)
-      }
-    })
+  useEffect( () =>{
+    async function fetchAPi() {
+      const data = await getGifs();
+      setGifs(data)
+    }
+    fetchAPi()
+
+          //  getGifs.then(res => setGifs(res))    
   }, [])
   
   return (
